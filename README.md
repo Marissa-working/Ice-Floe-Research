@@ -7,3 +7,4 @@
 ```  5/31/23: ``` Added a dataset that uses actual arctic data to better refine the results. <br>
 ```  5/31/23: ``` Add a random choice of weld, spilt or do nothing. Also, random choice according to the ice floe size. But low efficiency, needed to be improved. <br>
 
+```  6/13/23: ``` Added "stochastic_model" ipynb which is an alteration of the "ice_floe" ipynb to make it a random stochastic process instead of relying on datasets. This was the model presented in the meeting on 6/9/2023. <br>
