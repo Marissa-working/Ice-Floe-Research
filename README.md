@@ -15,15 +15,16 @@
 - Simulation based on size dependency of fracture (constant fracture and weld rate)
   - constant fracture and weld rate
   - choose fracture node based on size, random choose weld node
+    fracture weights = [i.width for i in children]
+- Simulation based on size dependency of fracture (constant fracture and weld rate)
+  - constant fracture and weld rate
+  - choose fracture node based on size, random choose weld node
   - fracture weights = [i.size/children's total size for i in children]
 - Simulation based on size dependency of fracture and # of ice floes (constant fracture and weld rate)
   - constant fracture and weld rate
   - choose fracture node based on size and number, random choose weld node
   - fracture layer weights = [size * # of size's ice floe/children's total size * # of size's ice floe  for i in children]
   - Then randomly select the node from the layer
-- Simulation based on size dependency of fracture (constant fracture and weld rate)
-  - Constant fracture and weld rate
-  - choose fracture node based on size, randomly choose weld node
 - Simulation based on the leaves number and parents' number
   - P(fracture) = 1 - P(weld), P(weld) = # of parents/ # of leaves
   - Random choice of the node to fracture and weld 
