@@ -15,7 +15,7 @@
 - Simulation based on size dependency of fracture (constant fracture and weld rate)
   - constant fracture and weld rate
   - choose fracture node based on size, random choose weld node
-    fracture weights = [i.width for i in children]
+  - fracture weights = [i.width for i in children]
 - Simulation based on size dependency of fracture (constant fracture and weld rate)
   - constant fracture and weld rate
   - choose fracture node based on size, random choose weld node
