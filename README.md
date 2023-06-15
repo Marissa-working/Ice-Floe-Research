@@ -8,10 +8,19 @@
 ```  5/31/23: ``` Add a random choice of weld, spilt or do nothing. Also, random choice according to the ice floe size. But low efficiency, needed to be improved. <br>
 ```  6/13/23: ``` Added "stochastic_model" ipynb which is an alteration of the "ice_floe" ipynb to make it a random stochastic process instead of relying on datasets. This was the model presented in the meeting on 6/9/2023. <br>
 ```  6/14/23: ``` Trying to add the power law visualizations and also added a function to simulate my model and give averages based on how many times we want to run it. Also added in the option for fractures to either be in 4 or 16 pieces with equal probabilty of either happening when there is a fracture event. <br>
-```  6/14/23: ``` Three models added. Four models total<br>
+```  6/14/23 and 6/15/23: ``` Three models added. Another two added Five models total<br>
 - Simulation based on constant fracture and weld rate
   - Constant fracture and weld rate
   - randomly choose fracture weld node
+- Simulation based on size dependency of fracture (constant fracture and weld rate)
+  - constant fracture and weld rate
+  - choose fracture node based on size, random choose weld node
+  - fracture weights = [i.size/children's total size for i in children]
+- Simulation based on size dependency of fracture and # of ice floes (constant fracture and weld rate)
+  - constant fracture and weld rate
+  - choose fracture node based on size and number, random choose weld node
+  - fracture layer weights = [size * # of size's ice floe/children's total size * # of size's ice floe  for i in children]
+  - Then randomly select the node from the layer
 - Simulation based on size dependency of fracture (constant fracture and weld rate)
   - Constant fracture and weld rate
   - choose fracture node based on size, randomly choose weld node
