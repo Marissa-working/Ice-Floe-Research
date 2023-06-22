@@ -30,5 +30,7 @@
   - Random choice of the node to fracture and weld 
 - Simulation based on the leaves' number and parent's number, and size
   - P(fracture) = 1 - P(weld), P(weld) = # of parents/ # of leaves
-  - choose fracture node based on size, randomly choose weld node
+  - choose fracture node based on size, randomly choose weld node <br>
+
+```  6/22/23: ``` Evelyn Updated stochastic_model.ipynb to be more organized and also debugged some code. Having trouble figuring out what distribution of floes to start with. <br>
 
