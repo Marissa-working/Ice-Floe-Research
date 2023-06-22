@@ -1,6 +1,6 @@
-# quardTree.py
-
-## Classes
+# Ice Floe Research API of all the files
+## quardTree.py
+### Classes
 * **Node(x0, y0, width, children, parent, id)**
     the basic element(the square in the quardTree)
     | parameters| meaning |
@@ -41,6 +41,6 @@
     quard.plot_size_distribution() # plot the size distribution
     ```
 
-# test.ipynb
+## test.ipynb
 
-# simulation.ipynb
+## simulation.ipynb
