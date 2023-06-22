@@ -24,7 +24,7 @@
     | methods| meaning |
     | ---------------------------| ------------------------------------------------------- |
     | **__init__(self)**  |  *(initialize the whole ice floe size is 1000 x 10000, root as the initial whole ice floe, leave_list, parent_list, size_distribution)*    |
-    | **subdivide(self, node)**  | node picked from leave_list*(divide the given node(must be a leave node) into four parts)* |
+    | **subdivide(self, node)**  | node picked from leave_list *(divide the given node(must be a leave node) into four parts)* |
     | **weld(self, node)**  | node picked from parent_list *(weld the four children of given node(must be a parent node) into one part)* |
     | **get_leaves(self)**  | *(return the leave list)* |
     | **get_parent(self)**  | *(return the parent list)* |
