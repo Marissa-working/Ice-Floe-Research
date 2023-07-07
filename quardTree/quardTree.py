@@ -82,7 +82,7 @@ class QTree():
                 
         size = node.width*node.width
         if size not in self.size_dist:
-            self.size_dist[size] = node
+            self.size_dist[size] = [node]
         else:
             self.size_dist[size].append(node)
         node.children.clear()
@@ -95,15 +95,46 @@ class QTree():
     
     def plot_size_distribution(self):
         sizes = list(self.size_dist.keys())
-        counts = [len(i) for i in self.size_dist.values()]
+        sizes.sort()
+        counts = [len(self.size_dist[i]) for i in sizes]
         print("sizes: ", sizes)
         print("counts: ",counts)
         plt.plot(sizes, counts, marker='o', linestyle='-')
+        plt.yscale('log')
+        plt.xscale('log')
         plt.xlabel('Node Size')
-        plt.ylabel('Count')
+        plt.ylabel('Probability')
         plt.title('Size Distribution of ice floes')
         plt.show()
-        
+    
+    def binning_plot(self, binsize):
+        bins = {}
+        dictionary = self.size_dist
+        for value in dictionary:
+            floe_count = len(dictionary[value])
+            # count which bins the value should be in
+            if value % binsize == 0:
+                bin_num = value//binsize  ## ex: 5%5=0 and 5 is under 1~5
+            else:
+                bin_num = value//binsize +1 ## ex: 3%5=3, 3//5 = 0 and 3 is under 1~5
+            size = bin_num * binsize
+            if size not in bins:
+                bins[size] = floe_count
+            else:
+                bins[size] += floe_count
+        sizes = list(bins.keys())
+        sizes.sort()
+        counts = [bins[i] for i in sizes]
+        print("sizes: ", sizes)
+        print("counts: ",counts)
+        plt.plot(sizes, counts, marker='o', linestyle='-')
+        plt.yscale('log')
+        plt.xscale('log')
+        plt.xlabel('Node Size')
+        plt.ylabel('Probability')
+        plt.title('Binned Size Distribution of ice floes')
+        plt.show()
+    
     def graph(self):
         """graph the quardtree plot"""
         fig, ax = plt.subplots(figsize=(8, 8))
