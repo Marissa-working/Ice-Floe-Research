@@ -10,4 +10,4 @@
 ```  6/14/23: ``` Trying to add the power law visualizations and also added a function to simulate my model and give averages based on how many times we want to run it. Also added in the option for fractures to either be in 4 or 16 pieces with equal probabilty of either happening when there is a fracture event. <br>
 ```  6/14/23 and 6/15/23: ``` Three models added. Another two added. Six models total<br>
 ```  6/22/23: ``` Evelyn Updated stochastic_model.ipynb to be more organized and also debugged some code. Having trouble figuring out what distribution of floes to start with. <br>
-
+```  10/4/23: ``` Marissa uploaded all the java files in the "Ice-Floe-Research/java_quardtree/Research-quardTree/src" folder. Comments are still under process.
