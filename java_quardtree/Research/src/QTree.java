@@ -1,0 +1,153 @@
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+import java.lang.Math;
+import java.util.Arrays;
+
+public class QTree {
+    Node root;
+    // leafListCopy is the leaflist with all the leaves that reaches the maxDivison and cannot be divided
+    List<Node> leafListCopy;
+    // leafList is the list of all the leaves that can divide
+    List<Node> leafList;
+    // parentList is all the parent leaves that can weld the four children
+    List<Node> parentList;
+    Map<Float, Integer> sizeDist;
+    int maxDivision = 3;
+    int maxWidth = 100000;
+
+    QTree() {
+        this.root = new Node(0, 0, maxWidth, new ArrayList<>(), null, UUID.randomUUID().hashCode() & 0xffff);
+        this.leafList = new ArrayList<>();
+        this.leafList.add(this.root);
+        this.leafListCopy = new ArrayList<>();
+        this.leafListCopy.add(this.root);
+        this.parentList = new ArrayList<>();
+    }
+
+    void subdivide(Node node) {
+        if(node.children.size() == 4){
+            System.out.println("error: You are not subdividing the leave node but node has been divided");
+        }
+        float w_ = node.width / 2.0f;
+        Node x1 = new Node(node.x0, node.y0,  w_, new ArrayList<>(4),  Arrays.asList(node), UUID.randomUUID().hashCode() & 0xffff);
+        Node x2 = new Node(node.x0, node.y0 +  w_,  w_, new ArrayList<>(4),  Arrays.asList(node), UUID.randomUUID().hashCode() & 0xffff);
+        Node x3 = new Node(node.x0 + w_, node.y0,  w_, new ArrayList<>(4),  Arrays.asList(node), UUID.randomUUID().hashCode() & 0xffff);
+        Node x4 = new Node(node.x0 +  w_, node.y0 +  w_, w_, new ArrayList<>(4),  Arrays.asList(node), UUID.randomUUID().hashCode() & 0xffff);
+        node.children.add(x1);
+        node.children.add(x2);
+        node.children.add(x3);
+        node.children.add(x4);
+        this.leafList.remove(node);
+        this.leafListCopy.remove(node);
+        System.out.println("width: "+w_ +"divide times: "+ countDivisions(w_) );
+        if (countDivisions(w_) >= this.maxDivision){
+            if (node.parent != null && node.parent.get(0) != null && this.parentList.contains(node.parent.get(0))) {
+                this.parentList.remove(node.parent.get(0));
+            }
+            this.parentList.add(node);
+            this.leafListCopy.add(x1);
+            this.leafListCopy.add(x2);
+            this.leafListCopy.add(x3);
+            this.leafListCopy.add(x4);
+            return;
+        }
+        this.leafList.add(x1);
+        this.leafList.add(x2);
+        this.leafList.add(x3);
+        this.leafList.add(x4);
+        this.leafListCopy.add(x1);
+        this.leafListCopy.add(x2);
+        this.leafListCopy.add(x3);
+        this.leafListCopy.add(x4);
+        if (node.parent != null && node.parent.get(0) != null && this.parentList.contains(node.parent.get(0))) {
+            this.parentList.remove(node.parent.get(0));
+        }
+
+        this.parentList.add(node);
+    }
+
+    boolean weld(Node node) {
+        this.parentList.remove(node);
+        this.leafList.remove(node.children.get(0));
+        this.leafList.remove(node.children.get(1));
+        this.leafList.remove(node.children.get(2));
+        this.leafList.remove(node.children.get(3));
+        this.leafList.add(node);
+
+        this.leafListCopy.remove(node.children.get(0));
+        this.leafListCopy.remove(node.children.get(1));
+        this.leafListCopy.remove(node.children.get(2));
+        this.leafListCopy.remove(node.children.get(3));
+        this.leafListCopy.add(node);
+
+        if (node.parent != null && node.parent.get(0) != null ) {
+            if(node.parent.get(0).children.size() == 0) {
+                System.out.println(node.parent.get(0).x0 +" " + node.parent.get(0).y0);
+                System.out.println(node.parent.get(0).width +" " + node.parent.get(0).id);
+                return true ;
+
+            }
+            if(this.leafList.contains(node.parent.get(0).children.get(0))
+                    && this.leafList.contains(node.parent.get(0).children.get(1))
+                    && this.leafList.contains(node.parent.get(0).children.get(2))
+                    && this.leafList.contains(node.parent.get(0).children.get(3))){
+                this.parentList.add(node.parent.get(0));
+            }
+
+        }
+        node.children = new ArrayList<>(4);
+        return false;
+    }
+
+    int countDivisions(double x) {
+        // check how many times the width is divided from maxWidth with 2
+        // the whole area is divided by 4 => width is divided by 2
+        double base = 2.0;
+        double num = Math.log(this.maxWidth / x) / Math.log(base);
+        return (int) Math.round(num);
+    }
+
+    List<Node> getLeaves() {
+        return this.leafList;
+    }
+
+    List<Node> getParent() {
+        return this.parentList;
+    }
+
+    void updateSizeDist() {
+        this.sizeDist = new HashMap<Float, Integer>();
+        List<Node> leaves = this.leafListCopy;
+        for (Node item : leaves) {
+            if (item != null) {
+                if (!this.sizeDist.containsKey(item.width)) {
+                    this.sizeDist.put( item.width, 1);
+                } else {
+                    this.sizeDist.put(item.width, this.sizeDist.get(item.width) + 1);
+                }
+            }
+        }
+    }
+    void plotSizeDistribution() {
+        //this.sizeDist = new HashMap<Float, Integer>();;
+        updateSizeDist();
+        List<Float> sizes = new ArrayList<>(this.sizeDist.keySet());
+        sizes.sort(null);
+        List<Integer> counts = new ArrayList<>();
+        for (float size : sizes) {
+            counts.add(this.sizeDist.get(size));
+        }
+        System.out.println("sizes = " + sizes);
+        System.out.println("counts = " + counts);
+        // Code for plotting the graph using a suitable Java plotting library goes here.
+    }
+
+
+}

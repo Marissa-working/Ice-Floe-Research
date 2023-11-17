@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="jfreechart-1.0.1-demo">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/Activity/Research/java quardtree/jfreechart-1.0.1/jfreechart-1.0.1-demo.jar!/" />
+      <root url="jar://$USER_HOME$/Activity/Research/java quardtree/jfreechart-1.0.1/lib/gnujaxp.jar!/" />
+      <root url="jar://$USER_HOME$/Activity/Research/java quardtree/jfreechart-1.0.1/lib/jcommon-1.0.0.jar!/" />
+      <root url="jar://$USER_HOME$/Activity/Research/java quardtree/jfreechart-1.0.1/lib/jfreechart-1.0.1.jar!/" />
+      <root url="jar://$USER_HOME$/Activity/Research/java quardtree/jfreechart-1.0.1/lib/junit.jar!/" />
+      <root url="jar://$USER_HOME$/Activity/Research/java quardtree/jfreechart-1.0.1/lib/servlet.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
